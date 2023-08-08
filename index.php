@@ -1,4 +1,4 @@
-<?php $is_auth = rand(1,0)?>
+<?php $isAuth = rand(1,0)?>
 <?php $user_name = 'Lemon'?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="header__profile-name">
                                 <span>
-                                    <?php if ($is_auth === 1) : ?>
+                                    <?php if ($isAuth === 1) : ?>
                                     <?= $user_name ?>
                                     <?php endif; ?>
                                 </span>
