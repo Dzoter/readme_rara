@@ -1,5 +1,5 @@
 <?php $isAuth = rand(1,0)?>
-<?php $user_name = 'Lemon'?>
+<?php $userName = 'Lemon'?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -66,7 +66,7 @@
                             <div class="header__profile-name">
                                 <span>
                                     <?php if ($isAuth === 1) : ?>
-                                    <?= $user_name ?>
+                                    <?= $userName ?>
                                     <?php endif; ?>
                                 </span>
                                 <svg class="header__link-arrow" width="10" height="6">
