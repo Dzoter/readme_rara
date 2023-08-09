@@ -1,5 +1,45 @@
 <?php $isAuth = rand(1,0)?>
 <?php $userName = 'Lemon'?>
+<?php require_once 'helpers.php'?>
+
+<?php $posts = [
+    [
+        'Заголовок' => 'Цитата',
+        'Тип' => 'post-quote',
+        'Содержимое' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
+        'Имя юзера' => 'Лариса',
+        'Аватар' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'Заголовок' => 'Игра престолов',
+        'Тип' => 'post-text',
+        'Содержимое' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+        'Имя юзера' => 'Владик',
+        'Аватар' => 'userpic.jpg'
+    ],
+    [
+        'Заголовок' => 'Наконец, обработал фотки!',
+        'Тип' => 'post-photo',
+        'Содержимое' => 'rock-medium.jpg',
+        'Имя юзера' => 'Виктор',
+        'Аватар' => 'userpic-mark.jpg'
+    ],
+    [
+        'Заголовок' => 'Моя мечта',
+        'Тип' => 'post-photo',
+        'Содержимое' => 'coast-medium.jpg',
+        'Имя юзера' => 'Лариса',
+        'Аватар' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'Заголовок' => 'Лучшие курсы',
+        'Тип' => 'post-link',
+        'Содержимое' => 'www.htmlacademy.ru',
+        'Имя юзера' => 'Владик',
+        'Аватар' => 'userpic.jpg'
+    ]
+];
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -66,7 +106,7 @@
                             <div class="header__profile-name">
                                 <span>
                                     <?php if ($isAuth === 1) : ?>
-                                    <?= $userName ?>
+                                        <?= $userName ?>
                                     <?php endif; ?>
                                 </span>
                                 <svg class="header__link-arrow" width="10" height="6">
@@ -112,7 +152,6 @@
         </div>
     </div>
 </header>
-
 <section class="page__main page__main--popular">
     <div class="container">
         <h1 class="page__title page__title--popular">Популярное</h1>
@@ -200,6 +239,7 @@
             </div>
         </div>
         <div class="popular__posts">
+            <?php foreach ($posts as $post): ?>
             <div class="visually-hidden" id="donor">
                 <!--содержимое для поста-цитаты-->
                 <blockquote>
@@ -232,7 +272,7 @@
                 <!--содержимое для поста-видео-->
                 <div class="post-video__block">
                     <div class="post-video__preview">
-                        <?=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
+                        <?= embed_youtube_cover('https://www.youtube.com/watch?v=7FdclCtowb0&ab_channel=EASTERCAKE'); ?>
                         <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
                     </div>
                     <a href="post-details.html" class="post-video__play-big button">
@@ -246,23 +286,40 @@
                 <!--содержимое для поста-текста-->
                 <p><!--здесь текст--></p>
             </div>
-
             <article class="popular__post post">
                 <header class="post__header">
-                    <h2><!--здесь заголовок--></h2>
+                    <h2><?= $post['Заголовок'] ?></h2>
                 </header>
                 <div class="post__main">
-                    <!--здесь содержимое карточки-->
+                    <?php if ($post['Тип'] ==  'post-photo') :?>
+                        <img src="img/<?=$post['Содержимое']?>">
+                    <?php endif;?>
+                    <?php if ($post['Тип'] ==  'post-link') :?>
+                        <h2><a href="<?= $post['Содержимое'] ?>"> <?= $post['Заголовок']?></a></h2>
+                    <?php endif;?>
+                    <?php if ($post['Тип'] ==  'post-text') :?>
+                        <blockquote>
+                            <p>
+                                <?=$post['Содержимое']?>
+                            </p>
+                        </blockquote>
+                    <?php endif;?>
+                    <?php if ($post['Тип'] ==  'post-quote') :?>
+                        <blockquote>
+                            <p>
+                                <?=$post['Содержимое']?>
+                            </p>
+                        </blockquote>
+                    <?php endif;?>
                 </div>
                 <footer class="post__footer">
                     <div class="post__author">
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
-                                <!--укажите путь к файлу аватара-->
-                                <img class="post__author-avatar" src="img" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img/<?=$post['Аватар']?>" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
-                                <b class="post__author-name"><!--здесь имя пользоателя--></b>
+                                <b class="post__author-name"><?= $post['Имя юзера'] ?></b>
                                 <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
@@ -290,6 +347,7 @@
                     </div>
                 </footer>
             </article>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
