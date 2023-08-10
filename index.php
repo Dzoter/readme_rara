@@ -1,3 +1,5 @@
+<?php $isAuth = rand(1,0)?>
+<?php $userName = 'Lemon'?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -63,7 +65,9 @@
                             </div>
                             <div class="header__profile-name">
                                 <span>
-                                    <!--здесь должно быть имя пользователя-->
+                                    <?php if ($isAuth === 1) : ?>
+                                    <?= $userName ?>
+                                    <?php endif; ?>
                                 </span>
                                 <svg class="header__link-arrow" width="10" height="6">
                                     <use xlink:href="#icon-arrow-right-ad"></use>
@@ -222,7 +226,7 @@
 
                 <!--содержимое для поста-фото-->
                 <div class="post-photo__image-wrapper">
-                    <img src="img/" alt="Фото от пользователя" width="360" height="240">
+                    <img src="img" alt="Фото от пользователя" width="360" height="240">
                 </div>
 
                 <!--содержимое для поста-видео-->
@@ -255,7 +259,7 @@
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
                                 <!--укажите путь к файлу аватара-->
-                                <img class="post__author-avatar" src="img/" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
                                 <b class="post__author-name"><!--здесь имя пользоателя--></b>
