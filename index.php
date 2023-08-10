@@ -319,20 +319,22 @@ function limitTextLength(string  $text, int $limit = 300)
                     <?php if ($post['Тип'] ==  'post-link') :?>
                         <h2><a href="<?= $post['Содержимое'] ?>"> <?= $post['Заголовок']?></a></h2>
                     <?php endif;?>
-                    <?php if ($post['Тип'] == 'post-text') :?>
-                        <?php if (mb_Strlen($post['Содержимое']) <= 300 ) ?>
+                    <?php if ($post['Тип'] == 'post-text'): ?>
+                    <?php  if (mb_strlen($post['Содержимое']) <= 300) :?>
                         <blockquote>
                             <p>
-                               <?= limitTextLength($post['Содержимое']) ?>
+                                <?= $post['Содержимое'] ?>
+                            </p>
+                        </blockquote>
+                    <?php endif;?>
+                    <?php  if (mb_strlen($post['Содержимое']) >= 300) :?>
+                        <blockquote>
+                            <p>
+                                <?= limitTextLength($post['Содержимое'])?>
                             </p>
                         </blockquote>
                             <a class="post-text__more-link" href="#">Читать далее</a>
-                        <?php else: ?>
-                            <blockquote>
-                            <p>
-                        <?= limitTextLength($post['Содержимое']) ?>
-                            </p>
-                        </blockquote>
+                        <?php endif;?>
                     <?php endif;?>
                     <?php if ($post['Тип'] ==  'post-quote') :?>
                         <blockquote>
