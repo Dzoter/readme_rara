@@ -1,5 +1,67 @@
 <?php $isAuth = rand(1,0)?>
 <?php $userName = 'Lemon'?>
+<?php require_once 'helpers.php'?>
+
+<?php $posts = [
+    [
+        'Title' => 'Цитата',
+        'Type' => 'post-quote',
+        'Content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
+        'UserName' => 'Лариса',
+        'Avatar' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'Title' => 'Игра престолов',
+        'Type' => 'post-text',
+        'Content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+        'UserName' => 'Владик',
+        'Avatar' => 'userpic.jpg'
+    ],
+    [
+        'Title' => 'Наконец, обработал фотки!',
+        'Type' => 'post-photo',
+        'Content' => 'rock-medium.jpg',
+        'UserName' => 'Виктор',
+        'Avatar' => 'userpic-mark.jpg'
+    ],
+    [
+        'Title' => 'Моя мечта',
+        'Type' => 'post-photo',
+        'Content' => 'coast-medium.jpg',
+        'UserName' => 'Лариса',
+        'Avatar' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'Title' => 'Лучшие курсы',
+        'Type' => 'post-link',
+        'Content' => 'www.htmlacademy.ru',
+        'UserName' => 'Владик',
+        'Avatar' => 'userpic.jpg'
+    ],
+    [
+        'Title' => 'Паста про Пророка Санбоя',
+        'Type' => 'post-text',
+        'Content' => 'Пророк Санбой - легендарная фигура, окруженная пеленой загадочности и древних предсказаний. Его имя стало синонимом мудрости и духовной прозрительности. Санбой предстал перед миром как жрец и прорицатель, способный уловить тайные потоки времени и раскрывать сокровенные истины.
+        Веками его учение передавалось из поколения в поколение, но немногие осмеливались вступить на путь его ученичества. Считалось, что лишь избранные способны расшифровать его символичные послания и проникнуть в глубины его знаний.
+        Пророк Санбой жил в уединении, в горной пещере, где, как гласят легенды, он находился в гармонии с природой и вселенной. Его медитации продолжались месяцами, а его видение простирались на века вперед. Считалось, что в его глазах можно было увидеть прошлое, настоящее и будущее объединенные в непрерывный поток времени.
+        Пророчества Санбоя часто оказывались точными и имели глубокий смысл. Они касались судеб народов, природных катаклизмов, и даже индивидуальных судеб людей. Его послания вызывали трепет и уважение, а его советы прославлялись своей ценностью.
+        Скончавшись, Санбой оставил миру свое наследие - свиток с пророчествами и учением. С тех пор его имя стало символом глубокой мудрости и стремления к пониманию тайн вселенной. Великое наследие Пророка Санбоя продолжает вдохновлять и просвещать тех, кто ищет истину и духовное развитие.',
+        'UserName' => 'Владик',
+        'Avatar' => 'userpic.jpg'
+    ]
+];
+function limitTextLength(string  $text, int $limit = 300)
+{
+    $result = ' ';
+    foreach (explode(' ', $text) as $value) {
+        if (mb_strlen($result) >= $limit) {
+            $result .= '...';
+            return $result;
+        }
+        $result .= " {$value}";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -66,7 +128,7 @@
                             <div class="header__profile-name">
                                 <span>
                                     <?php if ($isAuth === 1) : ?>
-                                    <?= $userName ?>
+                                        <?= $userName ?>
                                     <?php endif; ?>
                                 </span>
                                 <svg class="header__link-arrow" width="10" height="6">
@@ -112,7 +174,6 @@
         </div>
     </div>
 </header>
-
 <section class="page__main page__main--popular">
     <div class="container">
         <h1 class="page__title page__title--popular">Популярное</h1>
@@ -200,69 +261,52 @@
             </div>
         </div>
         <div class="popular__posts">
-            <div class="visually-hidden" id="donor">
-                <!--содержимое для поста-цитаты-->
-                <blockquote>
-                    <p>
-                        <!--здесь текст-->
-                    </p>
-                    <cite>Неизвестный Автор</cite>
-                </blockquote>
-
-                <!--содержимое для поста-ссылки-->
-                <div class="post-link__wrapper">
-                    <a class="post-link__external" href="http://" title="Перейти по ссылке">
-                        <div class="post-link__info-wrapper">
-                            <div class="post-link__icon-wrapper">
-                                <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
-                            </div>
-                            <div class="post-link__info">
-                                <h3><!--здесь заголовок--></h3>
-                            </div>
-                        </div>
-                        <span><!--здесь ссылка--></span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-фото-->
-                <div class="post-photo__image-wrapper">
-                    <img src="img" alt="Фото от пользователя" width="360" height="240">
-                </div>
-
-                <!--содержимое для поста-видео-->
-                <div class="post-video__block">
-                    <div class="post-video__preview">
-                        <?=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
-                        <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
-                    </div>
-                    <a href="post-details.html" class="post-video__play-big button">
-                        <svg class="post-video__play-big-icon" width="14" height="14">
-                            <use xlink:href="#icon-video-play-big"></use>
-                        </svg>
-                        <span class="visually-hidden">Запустить проигрыватель</span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-текста-->
-                <p><!--здесь текст--></p>
-            </div>
-
+            <?php foreach ($posts as $post): ?>
             <article class="popular__post post">
                 <header class="post__header">
                     <h2><!--здесь заголовок--></h2>
+                    <h2><?=$post['Title']?></h2>
                 </header>
                 <div class="post__main">
-                    <!--здесь содержимое карточки-->
+                    <?php if ($post['Type'] ==  'post-photo') :?>
+                        <img src="img/<?=$post['Content']?>">
+                    <?php endif;?>
+                    <?php if ($post['Type'] ==  'post-link') :?>
+                        <h2><a href="<?= $post['Content'] ?>"> <?= $post['Title']?></a></h2>
+                    <?php endif;?>
+                    <?php if ($post['Type'] == 'post-text'): ?>
+                    <?php  if (mb_strlen($post['Content']) <= 300) :?>
+                        <blockquote>
+                            <p>
+                                <?= $post['Content'] ?>
+                            </p>
+                        </blockquote>
+                    <?php endif;?>
+                    <?php  if (mb_strlen($post['Content']) >= 300) :?>
+                        <blockquote>
+                            <p>
+                                <?= limitTextLength($post['Content'])?>
+                            </p>
+                        </blockquote>
+                            <a class="post-text__more-link" href="#">Читать далее</a>
+                        <?php endif;?>
+                    <?php endif;?>
+                    <?php if ($post['Type'] ==  'post-quote') :?>
+                        <blockquote>
+                            <p>
+                                <?=$post['Content']?>
+                            </p>
+                        </blockquote>
+                    <?php endif;?>
                 </div>
                 <footer class="post__footer">
                     <div class="post__author">
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
-                                <!--укажите путь к файлу аватара-->
-                                <img class="post__author-avatar" src="img" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img/<?=$post['Avatar']?>" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
-                                <b class="post__author-name"><!--здесь имя пользоателя--></b>
+                                <b class="post__author-name"><?= $post['UserName'] ?></b>
                                 <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
@@ -290,6 +334,7 @@
                     </div>
                 </footer>
             </article>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
