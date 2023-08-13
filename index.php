@@ -4,50 +4,39 @@
 
 <?php $posts = [
     [
-        'Заголовок' => 'Цитата',
-        'Тип' => 'post-quote',
-        'Содержимое' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
-        'Имя юзера' => 'Лариса',
-        'Аватар' => 'userpic-larisa-small.jpg'
+        'title' => 'Цитата',
+        'type' => 'post-quote',
+        'content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
+        'userName' => 'Лариса',
+        'avatar' => 'userpic-larisa-small.jpg'
     ],
     [
-        'Заголовок' => 'Игра престолов',
-        'Тип' => 'post-text',
-        'Содержимое' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
-        'Имя юзера' => 'Владик',
-        'Аватар' => 'userpic.jpg'
+        'title' => 'Игра престолов',
+        'type' => 'post-text',
+        'content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+        'userName' => 'Владик',
+        'avatar' => 'userpic.jpg'
     ],
     [
-        'Заголовок' => 'Наконец, обработал фотки!',
-        'Тип' => 'post-photo',
-        'Содержимое' => 'rock-medium.jpg',
-        'Имя юзера' => 'Виктор',
-        'Аватар' => 'userpic-mark.jpg'
+        'title' => 'Наконец, обработал фотки!',
+        'type' => 'post-photo',
+        'content' => 'rock-medium.jpg',
+        'userName' => 'Виктор',
+        'avatar' => 'userpic-mark.jpg'
     ],
     [
-        'Заголовок' => 'Моя мечта',
-        'Тип' => 'post-photo',
-        'Содержимое' => 'coast-medium.jpg',
-        'Имя юзера' => 'Лариса',
-        'Аватар' => 'userpic-larisa-small.jpg'
+        'title' => 'Моя мечта',
+        'type' => 'post-photo',
+        'content' => 'coast-medium.jpg',
+        'userName' => 'Лариса',
+        'avatar' => 'userpic-larisa-small.jpg'
     ],
     [
-        'Заголовок' => 'Лучшие курсы',
-        'Тип' => 'post-link',
-        'Содержимое' => 'www.htmlacademy.ru',
-        'Имя юзера' => 'Владик',
-        'Аватар' => 'userpic.jpg'
-    ],
-    [
-        'Заголовок' => 'Паста про Пророка Санбоя',
-        'Тип' => 'post-text',
-        'Содержимое' => 'Пророк Санбой - легендарная фигура, окруженная пеленой загадочности и древних предсказаний. Его имя стало синонимом мудрости и духовной прозрительности. Санбой предстал перед миром как жрец и прорицатель, способный уловить тайные потоки времени и раскрывать сокровенные истины.
-        Веками его учение передавалось из поколения в поколение, но немногие осмеливались вступить на путь его ученичества. Считалось, что лишь избранные способны расшифровать его символичные послания и проникнуть в глубины его знаний.
-        Пророк Санбой жил в уединении, в горной пещере, где, как гласят легенды, он находился в гармонии с природой и вселенной. Его медитации продолжались месяцами, а его видение простирались на века вперед. Считалось, что в его глазах можно было увидеть прошлое, настоящее и будущее объединенные в непрерывный поток времени.
-        Пророчества Санбоя часто оказывались точными и имели глубокий смысл. Они касались судеб народов, природных катаклизмов, и даже индивидуальных судеб людей. Его послания вызывали трепет и уважение, а его советы прославлялись своей ценностью.
-        Скончавшись, Санбой оставил миру свое наследие - свиток с пророчествами и учением. С тех пор его имя стало символом глубокой мудрости и стремления к пониманию тайн вселенной. Великое наследие Пророка Санбоя продолжает вдохновлять и просвещать тех, кто ищет истину и духовное развитие.',
-        'Имя юзера' => 'Владик',
-        'Аватар' => 'userpic.jpg'
+        'title' => 'Лучшие курсы',
+        'type' => 'post-link',
+        'content' => 'www.htmlacademy.ru',
+        'userName' => 'Владик',
+        'avatar' => 'userpic.jpg'
     ]
 ];
 function limitTextLength(string  $text, int $limit = 300)
@@ -262,84 +251,38 @@ function limitTextLength(string  $text, int $limit = 300)
         </div>
         <div class="popular__posts">
             <?php foreach ($posts as $post): ?>
-            <div class="visually-hidden" id="donor">
-                <!--содержимое для поста-цитаты-->
-                <blockquote>
-                    <p>
-                        <!--здесь текст-->
-                    </p>
-                    <cite>Неизвестный Автор</cite>
-                </blockquote>
-
-                <!--содержимое для поста-ссылки-->
-                <div class="post-link__wrapper">
-                    <a class="post-link__external" href="http://" title="Перейти по ссылке">
-                        <div class="post-link__info-wrapper">
-                            <div class="post-link__icon-wrapper">
-                                <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
-                            </div>
-                            <div class="post-link__info">
-                                <h3><!--здесь заголовок--></h3>
-                            </div>
-                        </div>
-                        <span><!--здесь ссылка--></span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-фото-->
-                <div class="post-photo__image-wrapper">
-                    <img src="img" alt="Фото от пользователя" width="360" height="240">
-                </div>
-
-                <!--содержимое для поста-видео-->
-                <div class="post-video__block">
-                    <div class="post-video__preview">
-                        <?= embed_youtube_cover('https://www.youtube.com/watch?v=7FdclCtowb0&ab_channel=EASTERCAKE'); ?>
-                        <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
-                    </div>
-                    <a href="post-details.html" class="post-video__play-big button">
-                        <svg class="post-video__play-big-icon" width="14" height="14">
-                            <use xlink:href="#icon-video-play-big"></use>
-                        </svg>
-                        <span class="visually-hidden">Запустить проигрыватель</span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-текста-->
-                <p><!--здесь текст--></p>
-            </div>
             <article class="popular__post post">
                 <header class="post__header">
-                    <h2><?=$post['Заголовок']?></h2>
+                    <h2><?=$post['title']?></h2>
                 </header>
                 <div class="post__main">
-                    <?php if ($post['Тип'] ==  'post-photo') :?>
-                        <img src="img/<?=$post['Содержимое']?>">
+                    <?php if ($post['type'] === 'post-photo') :?>
+                        <img src="img/<?=$post['content']?>">
                     <?php endif;?>
-                    <?php if ($post['Тип'] ==  'post-link') :?>
-                        <h2><a href="<?= $post['Содержимое'] ?>"> <?= $post['Заголовок']?></a></h2>
+                    <?php if ($post['type'] === 'post-link') :?>
+                        <h2><a href="<?= $post['content'] ?>"> <?= $post['title']?></a></h2>
                     <?php endif;?>
-                    <?php if ($post['Тип'] == 'post-text'): ?>
-                    <?php  if (mb_strlen($post['Содержимое']) <= 300) :?>
+                    <?php if ($post['type'] === 'post-text'): ?>
+                    <?php  if (mb_strlen($post['content']) <= 300) :?>
                         <blockquote>
                             <p>
-                                <?= $post['Содержимое'] ?>
+                                <?= $post['content'] ?>
                             </p>
                         </blockquote>
                     <?php endif;?>
-                    <?php  if (mb_strlen($post['Содержимое']) >= 300) :?>
+                    <?php  if (mb_strlen($post['content']) >= 300) :?>
                         <blockquote>
                             <p>
-                                <?= limitTextLength($post['Содержимое'])?>
+                                <?= limitTextLength($post['content'])?>
                             </p>
                         </blockquote>
                             <a class="post-text__more-link" href="#">Читать далее</a>
                         <?php endif;?>
                     <?php endif;?>
-                    <?php if ($post['Тип'] ==  'post-quote') :?>
+                    <?php if ($post['type'] === 'post-quote') :?>
                         <blockquote>
                             <p>
-                                <?=$post['Содержимое']?>
+                                <?=$post['content']?>
                             </p>
                         </blockquote>
                     <?php endif;?>
@@ -348,10 +291,10 @@ function limitTextLength(string  $text, int $limit = 300)
                     <div class="post__author">
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
-                                <img class="post__author-avatar" src="img/<?=$post['Аватар']?>" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img/<?=$post['avatar']?>" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
-                                <b class="post__author-name"><?= $post['Имя юзера'] ?></b>
+                                <b class="post__author-name"><?= $post['userName'] ?></b>
                                 <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
