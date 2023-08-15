@@ -1,5 +1,59 @@
 <?php require_once 'helpers.php';
 
+date_default_timezone_set('Europe/Moscow');
+
+function getTime($randomDate)
+{
+    $currentTime =  new DateTime();
+    $postCreateTime = new DateTime($randomDate);
+    $interval = $currentTime->diff($postCreateTime);
+
+    if ($interval->i !== 0 && $interval->i < 60) {
+        $formPlural = get_noun_plural_form($interval->i,  'минута',  'минуты',  'минут');
+        return [
+            'interval' => "{$interval->i}  {$formPlural}",
+            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+            'title' => $postCreateTime->format('Y-m-d H:i')
+        ];
+
+    };
+    if ($interval->h !== 0 && $interval->h < 24) {
+        $formPlural = get_noun_plural_form($interval->h, 'час',  'часа',  'часов');
+        return
+            [
+                'interval' => "{$interval->h} {$formPlural}",
+                'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+                'title' => $postCreateTime->format('Y-m-d H:i')
+            ];
+    };
+    if ($interval->d !== 0 && $interval->d < 7) {
+        $formPlural = get_noun_plural_form($interval->d,  'день',  'дня',  'дней');
+        return [
+            'interval' => "{$interval->d} {$formPlural}",
+            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+            'title' => $postCreateTime->format('Y-m-d H:i')
+        ];
+    };
+    if ($interval->d >= 7 && ($interval->days / 7) < 5) {
+        $weeks = $interval->days / 7;
+        $formPlural = get_noun_plural_form($weeks,  'неделя',  'недели',  'недель');
+        return [
+            'interval' => "{$weeks} {$formPlural}",
+            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+            'title' => $postCreateTime->format('Y-m-d H:i')
+        ];
+    };
+    if ( ($interval->days / 7) > 5) {
+        $formPlural = get_noun_plural_form($interval->m,  'месяц',  'месяца',  'месяцев');
+        return [
+            'interval' => "{$interval->m} {$formPlural}",
+            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+            'title' => $postCreateTime->format('Y-m-d H:i')
+        ];
+    };
+}
+
+
 $isAuth = rand(1,0);
 $userName = 'Lemon';
 $posts = [
@@ -67,6 +121,7 @@ function limitTextLength(string  $text, int $limit = 300)
         $result .= " {$value}";
     }
 }
+
 
 $pageContent = include_template('main.php', ['posts' => $posts]);
 $layuotContent = include_template('layout.php', ['content' => $pageContent, 'userName' => $userName, 'title' => 'Популярное', 'isAuth' => $isAuth]);
