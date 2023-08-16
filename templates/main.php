@@ -88,27 +88,27 @@
             <?php foreach ($posts as $key => $post): ?>
             <article class="popular__post post">
                 <header class="post__header">
-                    <h2><?= h($post['title'])?></h2>
+                    <h2><?= htmlspecialchars($post['title'])?></h2>
                 </header>
                 <div class="post__main">
                     <?php if ($post['type'] === 'post-photo') :?>
-                        <img src="img/<?= h($post['content'])?>">
+                        <img src="img/<?= htmlspecialchars($post['content'])?>">
                     <?php endif;?>
                     <?php if ($post['type'] === 'post-link') :?>
-                        <h2><a href="<?= h($post['content']) ?>"> <?= h($post['title'])?></a></h2>
+                        <h2><a href="<?= htmlspecialchars($post['content']) ?>"> <?= htmlspecialchars($post['title'])?></a></h2>
                     <?php endif;?>
                     <?php if ($post['type'] === 'post-text'): ?>
                     <?php  if (mb_strlen($post['content']) <= 300) :?>
                         <blockquote>
                             <p>
-                                <?= h($post['content']) ?>
+                                <?= htmlspecialchars($post['content']) ?>
                             </p>
                         </blockquote>
                     <?php endif;?>
                     <?php  if (mb_strlen($post['content']) >= 300) :?>
                         <blockquote>
                             <p>
-                                <?= limitTextLength(h($post['content']))?>
+                                <?= limitTextLength(htmlspecialchars($post['content']))?>
                             </p>
                         </blockquote>
                             <a class="post-text__more-link" href="#">Читать далее</a>
@@ -117,7 +117,7 @@
                     <?php if ($post['type'] === 'post-quote') :?>
                         <blockquote>
                             <p>
-                                <?= h($post['content'])?>
+                                <?= htmlspecialchars($post['content'])?>
                             </p>
                         </blockquote>
                     <?php endif;?>
@@ -126,12 +126,11 @@
                     <div class="post__author">
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
-                                <img class="post__author-avatar" src="img/<?=$post['avatar']?>" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img/<?=htmlspecialchars($post['avatar'])?>" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
-                                <b class="post__author-name"><?= $post['userName'] ?></b>
-                                <?php $time = getTime(generate_random_date($key)) ?>
-                                <time class="post__time" title="<?= $time['title']?>" datetime="<?= $time['dateTime'] ?>"> <?= $time['interval']?></time>
+                                <b class="post__author-name"><?= htmlspecialchars($post['userName']) ?></b>
+                                <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
                     </div>

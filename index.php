@@ -105,11 +105,6 @@ $posts = [
     ]
 ];
 
-function h(string $text)
-{
-    return htmlspecialchars($text);
-}
-
 function limitTextLength(string  $text, int $limit = 300)
 {
     $result = ' ';
