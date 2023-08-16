@@ -116,8 +116,6 @@ function limitTextLength(string  $text, int $limit = 300)
         $result .= " {$value}";
     }
 }
-
-
 $pageContent = include_template('main.php', ['posts' => $posts]);
 $layuotContent = include_template('layout.php', ['content' => $pageContent, 'userName' => $userName, 'title' => 'Популярное', 'isAuth' => $isAuth]);
 print_r($layuotContent);
