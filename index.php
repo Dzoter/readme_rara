@@ -1,59 +1,63 @@
 <?php require_once 'helpers.php';
 
+
 date_default_timezone_set('Europe/Moscow');
 
 function getTime($randomDate)
 {
-    $currentTime =  new DateTime();
+    $dateInterval = [
+        'i' => [
+            'one' => 'минута',
+            'two' => 'минуты',
+            'many' => 'минут'
+        ],
+        'h' => [
+            'one' => 'час',
+            'two' => 'часа',
+            'many' => 'часов'
+        ],
+        'd' => [
+            'one' => 'день',
+            'two' => 'дня',
+            'many' => 'дней'
+        ],
+        'm' => [
+            'one' => 'месяц',
+            'two' => 'месяца',
+            'many' => 'месяцев'
+        ],
+    ];
+
+    $currentTime = new DateTime();
     $postCreateTime = new DateTime($randomDate);
     $interval = $currentTime->diff($postCreateTime);
-
-    if ($interval->i !== 0 && $interval->i < 60) {
-        $formPlural = get_noun_plural_form($interval->i,  'минута',  'минуты',  'минут');
-        return [
-            'interval' => "{$interval->i}  {$formPlural}",
+    foreach ($dateInterval as $key => $value) {
+        if ($interval->$key !== 0) {
+            $formPlural = get_noun_plural_form($interval->$key, $value['one'], $value['two'], $value['many']);
+            return
+                [
+                    'interval' => "{$interval->$key} {$formPlural}",
+                    'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+                    'title' => $postCreateTime->format('Y-m-d H:i')
+                ];
+        } elseif ($interval->days >= 7  && $interval->m === 0) {
+            $weeks = $interval->days / 7;
+            $formPlural = get_noun_plural_form($weeks, 'неделя', 'недели', 'недель');
+            return
+                [
+                    'interval' => "{$weeks} {$formPlural}",
+                    'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+                    'title' => $postCreateTime->format('Y-m-d H:i')
+                ];
+        }
+    }
+    return
+        [
+            'interval' => "Меньше минуты назад",
             'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
             'title' => $postCreateTime->format('Y-m-d H:i')
         ];
-
-    };
-    if ($interval->h !== 0 && $interval->h < 24) {
-        $formPlural = get_noun_plural_form($interval->h, 'час',  'часа',  'часов');
-        return
-            [
-                'interval' => "{$interval->h} {$formPlural}",
-                'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
-                'title' => $postCreateTime->format('Y-m-d H:i')
-            ];
-    };
-    if ($interval->d !== 0 && $interval->d < 7) {
-        $formPlural = get_noun_plural_form($interval->d,  'день',  'дня',  'дней');
-        return [
-            'interval' => "{$interval->d} {$formPlural}",
-            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
-            'title' => $postCreateTime->format('Y-m-d H:i')
-        ];
-    };
-    if ($interval->d >= 7 && ($interval->days / 7) < 5) {
-        $weeks = $interval->days / 7;
-        $formPlural = get_noun_plural_form($weeks,  'неделя',  'недели',  'недель');
-        return [
-            'interval' => "{$weeks} {$formPlural}",
-            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
-            'title' => $postCreateTime->format('Y-m-d H:i')
-        ];
-    };
-    if ( ($interval->days / 7) > 4) {
-        $formPlural = get_noun_plural_form($interval->m,  'месяц',  'месяца',  'месяцев');
-        return [
-            'interval' => "{$interval->m} {$formPlural}",
-            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
-            'title' => $postCreateTime->format('Y-m-d H:i')
-        ];
-    };
 }
-
-
 $isAuth = rand(1,0);
 $userName = 'Lemon';
 $posts = [
