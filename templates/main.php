@@ -1,3 +1,6 @@
+<?php
+/* @var array $posts */
+?>
 <section class="page__main page__main--popular">
     <div class="container">
         <h1 class="page__title page__title--popular">Популярное</h1>
@@ -85,7 +88,7 @@
             </div>
         </div>
         <div class="popular__posts">
-            <?php foreach ($posts as $post): ?>
+            <?php foreach ($posts as $key => $post): ?>
             <article class="popular__post post">
                 <header class="post__header">
                     <h2><?= htmlspecialchars($post['title'])?></h2>
@@ -130,7 +133,8 @@
                             </div>
                             <div class="post__info">
                                 <b class="post__author-name"><?= htmlspecialchars($post['userName']) ?></b>
-                                <time class="post__time" datetime="">дата</time>
+                                <?php $time = getTime(generate_random_date($key)) ?>
+                                <time class="post__time" title="<?= $time['title']?>" datetime="<?= $time['dateTime'] ?>"> <?= $time['interval']?></time>
                             </div>
                         </a>
                     </div>

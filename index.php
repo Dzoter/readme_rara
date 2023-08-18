@@ -1,5 +1,63 @@
 <?php require_once 'helpers.php';
 
+
+date_default_timezone_set('Europe/Moscow');
+
+function getTime($randomDate)
+{
+    $dateInterval = [
+        'i' => [
+            'one' => 'минута',
+            'two' => 'минуты',
+            'many' => 'минут'
+        ],
+        'h' => [
+            'one' => 'час',
+            'two' => 'часа',
+            'many' => 'часов'
+        ],
+        'd' => [
+            'one' => 'день',
+            'two' => 'дня',
+            'many' => 'дней'
+        ],
+        'm' => [
+            'one' => 'месяц',
+            'two' => 'месяца',
+            'many' => 'месяцев'
+        ],
+    ];
+
+    $currentTime = new DateTime();
+    $postCreateTime = new DateTime($randomDate);
+    $interval = $currentTime->diff($postCreateTime);
+    foreach ($dateInterval as $key => $value) {
+        if ($interval->$key !== 0) {
+            $formPlural = get_noun_plural_form($interval->$key, $value['one'], $value['two'], $value['many']);
+            return
+                [
+                    'interval' => "{$interval->$key} {$formPlural}",
+                    'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+                    'title' => $postCreateTime->format('Y-m-d H:i')
+                ];
+        } elseif ($interval->days >= 7  && $interval->m === 0) {
+            $weeks = $interval->days / 7;
+            $formPlural = get_noun_plural_form($weeks, 'неделя', 'недели', 'недель');
+            return
+                [
+                    'interval' => "{$weeks} {$formPlural}",
+                    'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+                    'title' => $postCreateTime->format('Y-m-d H:i')
+                ];
+        }
+    }
+    return
+        [
+            'interval' => "Меньше минуты назад",
+            'dateTime' => $postCreateTime->format('Y-m-d H:i:s'),
+            'title' => $postCreateTime->format('Y-m-d H:i')
+        ];
+}
 $isAuth = rand(1,0);
 $userName = 'Lemon';
 $posts = [
@@ -62,7 +120,6 @@ function limitTextLength(string  $text, int $limit = 300)
         $result .= " {$value}";
     }
 }
-
 $pageContent = include_template('main.php', ['posts' => $posts]);
 $layuotContent = include_template('layout.php', ['content' => $pageContent, 'userName' => $userName, 'title' => 'Популярное', 'isAuth' => $isAuth]);
 print_r($layuotContent);
