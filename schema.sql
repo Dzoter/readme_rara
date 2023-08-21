@@ -1,92 +1,92 @@
-create DATABASE Readme
+create DATABASE Readme_rara
   default character set utf8
   default collate utf8_general_ci;
 
 create table Users (
-  UserId int AUTO_INCREMENT PRIMARY KEY,
-  registrationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  id int AUTO_INCREMENT PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   login varchar(90) not null UNIQUE,
   email varchar(90) not null UNIQUE,
   password varchar(60) not null,
-  avatarPath varchar(255)
+  avatar_path varchar(255)
 );
 
 create table Post
 (
-  PostId   int   AUTO_INCREMENT PRIMARY KEY,
+  id   int   AUTO_INCREMENT PRIMARY KEY,
   title       varchar(90) not null,
-  createPostDate  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   content     text        not null,
-  authorQuote varchar(50),
-  pathPicture varchar(255),
-  pathVideo   varchar(255),
-  pathLink    varchar(255),
-  viewCount   int,
-  userId      int,
-  contentId   int,
-  foreign key (userId) references Users (userId),
-  foreign key (contentId) references typeContent (typeContentId)
+  author_quote varchar(50),
+  path_picture varchar(255),
+  path_video   varchar(255),
+  path_link    varchar(255),
+  view_count   int,
+  user_id      int,
+  content_id   int,
+  foreign key (userId) references Users (id),
+  foreign key (contentId) references typeContent (id)
 );
 
 create table Comments
 (
-  commentId int AUTO_INCREMENT PRIMARY KEY,
-  createCommentstDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  id int AUTO_INCREMENT PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   content text,
-  authorId int,
-  postId int,
-  foreign key (authorId) references Users(UserId),
-  foreign key (postId) references Post(PostId)
+  author_id int,
+  post_id int,
+  foreign key (author_id) references Users(id),
+  foreign key (post_id) references Post(id)
 );
 
-create table PostsHashtag
+create table Posts_hashtag
 (
-  hashtagId int,
-  postId int,
-  foreign key (hashtagId) references Hashtag(hashtagId),
-  foreign key (postId) references Post(PostId)
+  hashtag_id int,
+  post_id int,
+  foreign key (hashtag_id) references Hashtag(id),
+  foreign key (post_id) references Post(id)
 );
 
 create table Likes
 (
-  likesId int   AUTO_INCREMENT PRIMARY KEY,
-  userId int,
-  postId int,
-  foreign key (userId) references Users(UserId),
-  foreign key (postId) references Post(PostId)
+  id int   AUTO_INCREMENT PRIMARY KEY,
+  user_id int,
+  post_id int,
+  foreign key (user_id) references Users(id),
+  foreign key (post_id) references Post(id)
 );
 
 create table Subscriptions
 (
-  subscriptionsId   int   AUTO_INCREMENT PRIMARY KEY,
-  followerUserId int,
-  followingUserId int,
-  foreign key (followerUserId) references Users(UserId),
-  foreign key (followingUserId) references Users(UserId)
+  id   int   AUTO_INCREMENT PRIMARY KEY,
+  follower_user_id int,
+  following_user_id int,
+  foreign key (follower_user_id) references Users(id),
+  foreign key (following_user_id) references Users(id)
 );
 
 create table Messages
 (
-  messageId int AUTO_INCREMENT PRIMARY KEY,
-  createMessage TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  id int AUTO_INCREMENT PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   content text,
-  sendMessage int,
-  postMessage int,
-  foreign key (sendMessage) references Users(UserId),
-  foreign key (postMessage) references Users(UserId)
+  send_message int,
+  post_message int,
+  foreign key (send_message) references Users(id),
+  foreign key (post_message) references Users(id)
 );
 
 create table Hashtag
 (
-  hashtagId int AUTO_INCREMENT PRIMARY KEY,
-  hashtagName varchar(50)
+  id int AUTO_INCREMENT PRIMARY KEY,
+  hashtag_name varchar(50)
 );
 
-create table typeContent
+create table type_content
 (
-  typeContentId int AUTO_INCREMENT PRIMARY KEY,
-  nameType varchar(60),
-  nameIcon varchar(60)
+  id int AUTO_INCREMENT PRIMARY KEY,
+  name_type varchar(60),
+  name_icon varchar(60)
 );
 
 // индексы для поиска
