@@ -11,7 +11,7 @@ create table Users (
   avatar_path varchar(255)
 );
 
-create table Post
+create table Posts
 (
   id   int   AUTO_INCREMENT PRIMARY KEY,
   title       varchar(90) not null,
@@ -25,35 +25,35 @@ create table Post
   user_id      int,
   content_id   int,
   foreign key (userId) references Users (id),
-  foreign key (contentId) references typeContent (id)
+  foreign key (contentId) references type_content(id)
 );
 
 create table Comments
 (
   id int AUTO_INCREMENT PRIMARY KEY,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  content text,
+  content text not null,
   author_id int,
   post_id int,
   foreign key (author_id) references Users(id),
-  foreign key (post_id) references Post(id)
+  foreign key (post_id) references Posts(id)
 );
 
 create table Posts_hashtag
 (
   hashtag_id int,
   post_id int,
-  foreign key (hashtag_id) references Hashtag(id),
-  foreign key (post_id) references Post(id)
+  foreign key (hashtag_id) references Hashtags(id),
+  foreign key (post_id) references Posts(id)
 );
 
 create table Likes
 (
-  id int   AUTO_INCREMENT PRIMARY KEY,
+  id int  AUTO_INCREMENT PRIMARY KEY,
   user_id int,
   post_id int,
   foreign key (user_id) references Users(id),
-  foreign key (post_id) references Post(id)
+  foreign key (post_id) references Posts(id)
 );
 
 create table Subscriptions
@@ -76,7 +76,7 @@ create table Messages
   foreign key (post_message) references Users(id)
 );
 
-create table Hashtag
+create table Hashtags
 (
   id int AUTO_INCREMENT PRIMARY KEY,
   hashtag_name varchar(50)
@@ -91,6 +91,6 @@ create table type_content
 
 // индексы для поиска
 CREATE INDEX u_login ON Users(login);
-CREATE INDEX p_title ON Post(title);
-CREATE INDEX p_content on Post(content)
+CREATE INDEX p_title ON Posts(title);
+CREATE INDEX p_content on Posts(content)
 
