@@ -49,6 +49,7 @@ create table PostsHashtag
 
 create table Likes
 (
+  likesId int   AUTO_INCREMENT PRIMARY KEY,
   userId int,
   postId int,
   foreign key (userId) references Users(UserId),
@@ -57,6 +58,7 @@ create table Likes
 
 create table Subscriptions
 (
+  subscriptionsId   int   AUTO_INCREMENT PRIMARY KEY,
   followerUserId int,
   followingUserId int,
   foreign key (followerUserId) references Users(UserId),
