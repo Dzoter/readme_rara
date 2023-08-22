@@ -2,12 +2,15 @@ create DATABASE Readme_rara
   default character set utf8
   default collate utf8_general_ci;
 
-create table Users (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  login varchar(90) not null UNIQUE,
-  email varchar(90) not null UNIQUE,
-  password varchar(60) not null,
+use Readme_rara;
+
+create table Users
+(
+  id          int AUTO_INCREMENT PRIMARY KEY,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  login       varchar(90) not null UNIQUE,
+  email       varchar(90) not null UNIQUE,
+  password    varchar(60) not null,
   avatar_path varchar(255)
 );
 
@@ -92,5 +95,4 @@ create table type_content
 // индексы для поиска
 CREATE INDEX u_login ON Users(login);
 CREATE INDEX p_title ON Posts(title);
-CREATE INDEX p_content on Posts(content)
-
+CREATE INDEX p_content on Posts(content);
