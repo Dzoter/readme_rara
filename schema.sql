@@ -14,6 +14,13 @@ create table Users
   avatar_path varchar(255)
 );
 
+create table type_content
+(
+  id int AUTO_INCREMENT PRIMARY KEY,
+  name_type varchar(60),
+  name_icon varchar(60)
+);
+
 create table Posts
 (
   id   int   AUTO_INCREMENT PRIMARY KEY,
@@ -27,8 +34,8 @@ create table Posts
   view_count   int,
   user_id      int,
   content_id   int,
-  foreign key (userId) references Users (id),
-  foreign key (contentId) references type_content(id)
+  foreign key (user_id) references Users (id),
+  foreign key (content_id) references type_content(id)
 );
 
 create table Comments
@@ -40,6 +47,12 @@ create table Comments
   post_id int,
   foreign key (author_id) references Users(id),
   foreign key (post_id) references Posts(id)
+);
+
+create table Hashtags
+(
+  id int AUTO_INCREMENT PRIMARY KEY,
+  hashtag_name varchar(50)
 );
 
 create table Posts_hashtag
@@ -79,20 +92,6 @@ create table Messages
   foreign key (post_message) references Users(id)
 );
 
-create table Hashtags
-(
-  id int AUTO_INCREMENT PRIMARY KEY,
-  hashtag_name varchar(50)
-);
-
-create table type_content
-(
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name_type varchar(60),
-  name_icon varchar(60)
-);
-
-// индексы для поиска
 CREATE INDEX u_login ON Users(login);
 CREATE INDEX p_title ON Posts(title);
-CREATE INDEX p_content on Posts(content);
+CREATE INDEX p_content on Posts(content(50));
