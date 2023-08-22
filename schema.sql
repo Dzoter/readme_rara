@@ -26,7 +26,7 @@ create table Posts
   id   int   AUTO_INCREMENT PRIMARY KEY,
   title       varchar(90) not null,
   created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  content     text        not null,
+  content     text,
   author_quote varchar(50),
   path_picture varchar(255),
   path_video   varchar(255),
